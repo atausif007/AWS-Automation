@@ -1,0 +1,50 @@
+##### To print the EC2 instances ID and state #####
+
+import boto3
+
+ec2 = boto3.resource('ec2')
+for instance in ec2.instances.all():
+    #To print the instance ID and state
+    print(f' Instance_ID: {instance.id} , state: {instance.state["Name"]}')
+
+
+##### Checking if EC2 instances are runing than it will procced to stop them #####
+
+import boto3
+
+ec2 = boto3.resource('ec2')
+for instance in ec2.instances.all():
+    #To print the instance ID and state
+    print(f' Instance_ID: {instance.id} , state: {instance.state["Name"]}')
+    if instance.state["Name"] == 'running':
+        ec2.instances.stop()
+        
+        
+#### Checking if EC2 instances are stopped than it will procced to run them ######          
+
+import boto3
+
+ec2 = boto3.resource('ec2')
+for instance in ec2.instances.all():
+    #To print the instance ID and state
+    print(f' Instance_ID: {instance.id} , state: {instance.state["Name"]}')
+    if instance.state["Name"] == 'stopped'
+        ec2.instances.start()
+        
+        
+### checking the EC2 instance state and includingly excute the programe #####
+
+import boto3
+
+ec2 = boto3.resource('ec2')
+for instance in ec2.instances.all():
+    print(f' Instance_ID: {instance.id} , state: {instance.state["Name"]}')
+    if instance.state["Name"] == 'running':
+        ec2.instances.stop()
+        print('EC2 is starining...')
+            
+    elif instance.state["Name"] == 'stopped':
+        ec2.instances.start()
+        print('EC2 is starting... ')
+        
+  
