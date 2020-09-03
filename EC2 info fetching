@@ -1,0 +1,14 @@
+# Fetch a list of instances details in your Amazon AWS environment.
+
+import boto3
+
+ec2client = boto3.client('ec2')
+response = ec2client.describe_instances()
+for reservation in response["Reservations"]:
+    for instance in reservation["Instances"]:
+        # This will output entire Dictionary object.
+        #print(instance)
+        # This will print will output the value of the Dictionary key 'InstanceId' and 'IntanceType'
+        print(f'Instance: {instance["InstanceId"]} Instance_Type: {instance["InstanceType"]}')
+        
+-----------------------------------------------------------------------------------------------------------------------------------      
