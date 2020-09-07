@@ -1,0 +1,30 @@
+### This script for deleting unused disk ###
+
+import boto3
+
+session = boto3.Session()
+ec2_re = session.resource('ec2', region_name='us-east-1')
+ec2_cli = session.client('ec2', region_name='us-east-1')
+
+vol_id=[]
+
+for ec2 in ec2_re.volumes.all():
+    #print(dir(ec2.id))                          ### To check the attribute command
+    #print(ec2.id, ec2.tags, ec2.state)
+    if ec2.state =='available':
+        print(ec2.id)
+        vol_id.append(ec2.id)
+        
+for vol in vol_id:
+    ec2_vol=ec2_re.Volume(vol)
+    #print(dir(ec2_vol))
+    print('Deleting volumes...',ec2_vol)
+    ec2_vol.delete()
+
+waiter =ec2_cli.get_waiter('volume_deleted')    ### sript will wait until it's completed.
+try:
+    waiter.wait(VolumeIds=vol_id)
+    print("successfully deleted volumes")
+except Exception as e:
+    print(e)
+
